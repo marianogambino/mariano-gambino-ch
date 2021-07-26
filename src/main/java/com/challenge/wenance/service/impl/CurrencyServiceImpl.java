@@ -2,6 +2,7 @@ package com.challenge.wenance.service.impl;
 
 import com.challenge.wenance.dto.CurrencyPage;
 import com.challenge.wenance.enums.CurrencyTypeEnum;
+import com.challenge.wenance.factory.CurrencyAvarageFactory;
 import com.challenge.wenance.helper.CurrencyHelper;
 import com.challenge.wenance.model.*;
 import com.challenge.wenance.repository.CurrencyRepository;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.stream.Stream;
+
 
 @Slf4j
 @Service
@@ -30,10 +30,14 @@ public class CurrencyServiceImpl implements CurrencyService {
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private DatabaseSequenceService databaseSequenceService;
     private CurrencyRepository repository;
+    private CurrencyAvarageFactory currencyAvarageFactory;
 
-    public CurrencyServiceImpl(CurrencyRepository repository, DatabaseSequenceService databaseSequenceService){
+    public CurrencyServiceImpl(CurrencyRepository repository,
+                               DatabaseSequenceService databaseSequenceService,
+                               CurrencyAvarageFactory currencyAvarageFactory){
         this.repository = repository;
         this.databaseSequenceService = databaseSequenceService;
+        this.currencyAvarageFactory = currencyAvarageFactory;
     }
 
     @Override
@@ -68,115 +72,22 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public CryptoCurrencyGroup getAverageBetweenDates(Date starDate, Date endDate) {
-        List<Currency> currencyStream = this.repository.findCurrenciesByCreationDateBetween(starDate, endDate);
-
-        OptionalDouble purchasePriceBtCars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                      .map( CryptoCurrencyGroup :: getBtcars)
-                      .map( Btcars::getPurchase_price)
-                      .mapToDouble(BigDecimal::doubleValue)
-                      .average();
-
-
-        OptionalDouble sellingPriceBtCars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getBtcars)
-                .map( Btcars::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble purchasePriceDaiars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getDaiars)
-                .map( Daiars::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble sellingPriceDaiars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getDaiars)
-                .map( Daiars::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble purchasePriceBtcdai = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getBtcdai)
-                .map( Btcdai::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble sellingPriceBtcdai = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getBtcdai)
-                .map( Btcdai::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble purchasePriceDaiusd = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getDaiusd)
-                .map( Daiusd::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble sellingPriceDaiusd = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getDaiusd)
-                .map( Daiusd::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble purchasePriceEthars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getEthars)
-                .map( Ethars::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble sellingPriceEthars = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getEthars)
-                .map( Ethars::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble purchasePriceEthdai = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getEthdai)
-                .map( Ethdai::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        OptionalDouble sellingPriceEthdai = currencyStream.stream().map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getEthdai)
-                .map( Ethdai::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
+        List<Currency> allCurrenciesUpToday = this.repository.findCurrenciesByCreationDateBetween(starDate, endDate);
+        Btcars btcars = (Btcars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
+        Btcdai btcdai = (Btcdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
+        Daiars daiars = (Daiars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);
+        Daiusd daiusd = (Daiusd) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIUSD).getAverage(allCurrenciesUpToday);
+        Ethars ethars = (Ethars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHARS).getAverage(allCurrenciesUpToday);
+        Ethdai ethdai = (Ethdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHDAI).getAverage(allCurrenciesUpToday);
 
         return CryptoCurrencyGroup.builder()
-                .btcars(
-                    Btcars.builder()
-                            .purchase_price( BigDecimal.valueOf( purchasePriceBtCars.getAsDouble()) )
-                            .selling_price( BigDecimal.valueOf( sellingPriceBtCars.getAsDouble() ))
-                            .build())
-                .btcdai(
-                        Btcdai.builder()
-                                .purchase_price( BigDecimal.valueOf( purchasePriceBtcdai.getAsDouble()) )
-                                .selling_price( BigDecimal.valueOf( sellingPriceBtcdai.getAsDouble() ))
-                                .build())
-                .daiars(
-                        Daiars.builder()
-                                .purchase_price( BigDecimal.valueOf( purchasePriceDaiars.getAsDouble()) )
-                                .selling_price( BigDecimal.valueOf( sellingPriceDaiars.getAsDouble() ))
-                                .build())
-                .daiusd(
-                        Daiusd.builder()
-                                .purchase_price( BigDecimal.valueOf( purchasePriceDaiusd.getAsDouble()) )
-                                .selling_price( BigDecimal.valueOf( sellingPriceDaiusd.getAsDouble() ))
-                                .build())
-                .ethars(
-                        Ethars.builder()
-                                .purchase_price( BigDecimal.valueOf( purchasePriceEthars.getAsDouble()) )
-                                .selling_price( BigDecimal.valueOf( sellingPriceEthars.getAsDouble() ))
-                                .build())
-                .ethdai(
-                        Ethdai.builder()
-                                .purchase_price( BigDecimal.valueOf( purchasePriceEthdai.getAsDouble()) )
-                                .selling_price( BigDecimal.valueOf( sellingPriceEthdai.getAsDouble() ))
-                                .build())
+                .btcars( btcars )
+                .btcdai( btcdai )
+                .daiusd( daiusd )
+                .daiars( daiars )
+                .ethars( ethars )
+                .ethdai( ethdai )
                 .build();
-
-
     }
 
     @Override

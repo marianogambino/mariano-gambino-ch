@@ -1,5 +1,8 @@
 package com.challenge.wenance;
 
+import com.challenge.wenance.model.*;
+import com.challenge.wenance.service.CurrencyAverageService;
+import com.challenge.wenance.service.impl.*;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.boot.SpringApplication;
@@ -45,6 +48,35 @@ public class WenanceApplication {
 	public CloseableHttpClient closeableHttpClient(){
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		return httpClient;
+	}
+
+	@Bean
+	public CurrencyAverageService<Btcars> btcarsCurrencyAverageService(){
+		return new BtcarsAverageServiceImpl();
+	}
+	@Bean
+	public CurrencyAverageService<Btcdai> btcdaiCurrencyAverageService(){
+		return new BtcdaiAverageServiceImpl();
+	}
+
+	@Bean
+	public CurrencyAverageService<Daiars> daiarsCurrencyAverageService(){
+		return new DaiarsAverageServiceImpl();
+	}
+
+	@Bean
+	public CurrencyAverageService<Daiusd> daiusdCurrencyAverageService(){
+		return new DaiusdAverageServiceImpl();
+	}
+
+	@Bean
+	public CurrencyAverageService<Ethars> etharsCurrencyAverageService(){
+		return new EtharsAverageServiceImpl();
+	}
+
+	@Bean
+	public CurrencyAverageService<Ethdai> ethdaiCurrencyAverageService(){
+		return new EthdaiAverageServiceImpl();
 	}
 
 }
