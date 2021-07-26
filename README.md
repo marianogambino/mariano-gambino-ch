@@ -74,10 +74,6 @@ y luego para visualizar el dato insertado de ejemplo, ejecutamos:
 Primero debemos ejecutar el siguiente comando desde root path de nuestro proyecto
 > docker build --tag=wenancech:latest .
 
-## Ejecutar Microservicio en docker.
-Expone el microservicio en el puerto 8081
-> docker run -p 8081:8888 --name wenancech -d wenancech:latest  
-
 ## Ejecutar Micoservicio con docker-compose
 Desde path root del proyecto ejecutar:
 > docker-compose up
