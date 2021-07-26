@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "63b20aca-0eb2-4687-abcd-198675a431d0",
+		"name": "Wenance Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetBtc Btcars by default",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc Btcars without currentTime - expected error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc with parameter daiars btcType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z&btcType=daiars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						},
+						{
+							"key": "btcType",
+							"value": "daiars"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc with parameter  daiusd btcType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z&btcType=daiusd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						},
+						{
+							"key": "btcType",
+							"value": "daiusd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc with parameter  btcdai btcType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z&btcType=btcdai",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						},
+						{
+							"key": "btcType",
+							"value": "btcdai"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc with parameter  ethars btcType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z&btcType=ethars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						},
+						{
+							"key": "btcType",
+							"value": "ethars"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBtc with parameter  ethdai btcType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z&btcType=ethdai",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency"
+					],
+					"query": [
+						{
+							"key": "currentTime",
+							"value": "26-07-2021T02:09:45Z"
+						},
+						{
+							"key": "btcType",
+							"value": "ethdai"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Average Princing",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/averagePrice?startTime=26-07-2021T00:00:00Z&endTime=26-07-2021T05:00:00Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"averagePrice"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T00:00:00Z"
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T05:00:00Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Average Princing without startTime Params - Expected error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/averagePrice?endTime=26-07-2021T05:00:00Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"averagePrice"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T00:00:00Z",
+							"disabled": true
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T05:00:00Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Average Princing without endTime Params - Expected error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/averagePrice?startTime=26-07-2021T00:00:00Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"averagePrice"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T00:00:00Z"
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T05:00:00Z",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Btc Information with pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/allBtc?startTime=26-07-2021T01:00:00Z&endTime=26-07-2021T02:55:20Z&page=1&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"allBtc"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T01:00:00Z"
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T02:55:20Z"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Btc Information with pagination without page param - Expected Error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/allBtc?startTime=26-07-2021T01:00:00Z&endTime=26-07-2021T02:55:20Z&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"allBtc"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T01:00:00Z"
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T02:55:20Z"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Btc Information with pagination without size param - Expected Error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/allBtc?startTime=26-07-2021T01:00:00Z&endTime=26-07-2021T02:55:20Z&page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"allBtc"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T01:00:00Z"
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T02:55:20Z"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Btc Information with pagination without startDate and endDate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cryptocurrency/allBtc?page=1&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cryptocurrency",
+						"allBtc"
+					],
+					"query": [
+						{
+							"key": "startTime",
+							"value": "26-07-2021T01:00:00Z",
+							"disabled": true
+						},
+						{
+							"key": "endTime",
+							"value": "26-07-2021T02:55:20Z",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
