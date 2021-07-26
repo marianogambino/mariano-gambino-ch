@@ -67,27 +67,36 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public CryptoCurrency getCurrency(String currencyType, Date date) {
         Currency currency = this.repository.findByCreationDate(date);
-        return CurrencyHelper.getCrytoCurrency( CurrencyTypeEnum.fromString(currencyType.toLowerCase()), currency);
+        Optional<Currency> optionalCurrency = Optional.ofNullable(currency);
+        if(optionalCurrency.isPresent())
+            return CurrencyHelper.getCrytoCurrency( CurrencyTypeEnum.fromString(currencyType.toLowerCase()), currency);
+
+        return Btcars.builder().build();
     }
 
     @Override
     public CryptoCurrencyGroup getAverageBetweenDates(Date starDate, Date endDate) {
         List<Currency> allCurrenciesUpToday = this.repository.findCurrenciesByCreationDateBetween(starDate, endDate);
-        Btcars btcars = (Btcars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
-        Btcdai btcdai = (Btcdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
-        Daiars daiars = (Daiars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);
-        Daiusd daiusd = (Daiusd) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIUSD).getAverage(allCurrenciesUpToday);
-        Ethars ethars = (Ethars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHARS).getAverage(allCurrenciesUpToday);
-        Ethdai ethdai = (Ethdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHDAI).getAverage(allCurrenciesUpToday);
 
-        return CryptoCurrencyGroup.builder()
-                .btcars( btcars )
-                .btcdai( btcdai )
-                .daiusd( daiusd )
-                .daiars( daiars )
-                .ethars( ethars )
-                .ethdai( ethdai )
-                .build();
+        Optional<List<Currency>> optionalCurrencies = Optional.ofNullable(allCurrenciesUpToday);
+        if(optionalCurrencies.isPresent()) {
+            Btcars btcars = (Btcars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
+            Btcdai btcdai = (Btcdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
+            Daiars daiars = (Daiars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);
+            Daiusd daiusd = (Daiusd) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIUSD).getAverage(allCurrenciesUpToday);
+            Ethars ethars = (Ethars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHARS).getAverage(allCurrenciesUpToday);
+            Ethdai ethdai = (Ethdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHDAI).getAverage(allCurrenciesUpToday);
+
+            return CryptoCurrencyGroup.builder()
+                    .btcars(btcars)
+                    .btcdai(btcdai)
+                    .daiusd(daiusd)
+                    .daiars(daiars)
+                    .ethars(ethars)
+                    .ethdai(ethdai)
+                    .build();
+        }
+        return CryptoCurrencyGroup.builder().build();
     }
 
     @Override
@@ -103,12 +112,16 @@ public class CurrencyServiceImpl implements CurrencyService {
             currencyPage = this.repository.findAll(paging);
         }
 
-        return CurrencyPage.builder()
-                .totalPages( currencyPage.getTotalPages() )
-                .totalItems( currencyPage.getTotalElements())
-                .currentPage( currencyPage.getNumber() )
-                .currencies(currencyPage.getContent())
-                .build();
+        Optional<Page<Currency>> optionalCurrencyPage = Optional.ofNullable(currencyPage);
+        if(optionalCurrencyPage.isPresent()) {
+            return CurrencyPage.builder()
+                    .totalPages(currencyPage.getTotalPages())
+                    .totalItems(currencyPage.getTotalElements())
+                    .currentPage(currencyPage.getNumber())
+                    .currencies(currencyPage.getContent())
+                    .build();
+        }
+        return CurrencyPage.builder().build();
 
     }
 

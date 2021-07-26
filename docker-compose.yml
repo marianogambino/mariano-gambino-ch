@@ -1,0 +1,23 @@
+version: '3'
+services:
+  wenancech:
+    container_name: wenancech
+    environment:
+        spring.data.mongodb.uri: "mongodb://localhost:27017/wenancechDB"
+        buenbit.service.url: "https://be.buenbit.com/api"
+        logging.level.org.springframework.data: "debug"
+        server.port: 8081
+    image: wenancech:latest
+    ports:
+        - "8081:8081"
+    networks:
+        - spring-cloud-network
+
+  mongoDB:
+    image: mongo:latest
+    ports:
+        - "27017:27017"
+
+networks:
+  spring-cloud-network:
+    driver: bridge
