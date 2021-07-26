@@ -79,7 +79,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         List<Currency> allCurrenciesUpToday = this.repository.findCurrenciesByCreationDateBetween(starDate, endDate);
 
         Optional<List<Currency>> optionalCurrencies = Optional.ofNullable(allCurrenciesUpToday);
-        if(optionalCurrencies.isPresent()) {
+        if(optionalCurrencies.isPresent() && optionalCurrencies.get().size() > 0) {
             Btcars btcars = (Btcars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
             Btcdai btcdai = (Btcdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
             Daiars daiars = (Daiars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);

@@ -17,6 +17,8 @@ services:
     image: mongo:latest
     ports:
         - "27017:27017"
+    networks:
+      - spring-cloud-network
 
 networks:
   spring-cloud-network:
