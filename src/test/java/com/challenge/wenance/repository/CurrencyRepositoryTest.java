@@ -1,4 +1,4 @@
-package com.challenge.wenance.service.buenbit;
+package com.challenge.wenance.repository;
 
 import com.challenge.wenance.model.CryptoCurrencyGroup;
 import com.challenge.wenance.model.Currency;
