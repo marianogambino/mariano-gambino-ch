@@ -31,15 +31,15 @@ Antes de realizar el start del microservicio se debe instalar docker
 ## Instalacion de MongoDB
 Una vez instalado docker en la maquina local debemos instalar una instancia de MongoDB en docker
 
-### Para instalar mongo en docker
+### Instalar mongo en docker
 > docker pull mongo
 
-### Para levantar el servidor de mongo
+### Iniciar el servidor de mongo
 Exponemos el puerto (solo con fines practicos) para que podamos acceder desde afuera, más que nada para cuando levantemos
 el servicio de manera local se pueda conectar a la base de datos.
 > docker run  -p 27017:27017 --name some-mongo -d mongo:latest
 
-### Para inicar la consola de mongo
+### Iniciar la consola de mongo
 > docker exec -it some-mongo mongo
 
 ### Ahora estamos en la consola de MONGODB
@@ -59,12 +59,12 @@ y luego para visualizar el dato insertado de ejemplo, ejecutamos:
 
 > db.test.find()
 
-####Una vez que realizamos el primer insert vamos a ver la base de datos creada
+#### Una vez que realizamos el primer insert vamos a ver la base de datos creada
 
-###Para saber en que base de datos estamos parados
+### Para saber en que base de datos estamos parados
 > db
 
-## Para iniciar la aplicacion de forma local (localmachine)
+## Iniciar el microservicio de forma local (local machine)
 
 #### Desde la linea de consola ejecura:
 >mvn spring-boot:run
