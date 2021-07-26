@@ -71,9 +71,12 @@ y luego para visualizar el dato insertado de ejemplo, ejecutamos:
 
 
 ## Generar imagen e instalar en docker
+Primero debemos ejecutar el siguiente comando desde root path de nuestro proyecto
+> docker build --tag=wenancech:latest
 
 ## Ejecutar App en docker.
-
+Expones el microservicio en el puerto 8081
+> docker run -p 8081:8888 wenancech:latest
 
 ## Test de Integración (Postman)
 ####Una vez levantado el microservicio, se puede probar importando el archivo en Postman: 
