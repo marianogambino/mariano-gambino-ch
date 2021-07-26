@@ -3,7 +3,6 @@ package com.challenge.wenance.service.buenbit;
 import com.challenge.wenance.model.CryptoCurrencyGroup;
 import com.challenge.wenance.model.Currency;
 import com.challenge.wenance.model.Daiars;
-import com.challenge.wenance.sequencer.model.DatabaseSequence;
 import com.challenge.wenance.repository.CurrencyRepository;
 import com.challenge.wenance.sequencer.service.DatabaseSequenceService;
 import org.junit.jupiter.api.Assertions;
@@ -88,10 +87,10 @@ public class CurrencyRepositoryTest {
         String endDateString = "2021-07-26 02:55:20";
         Date endDate = sdf.parse( endDateString );
 
-        Stream<Currency> currencyStream = this.repository.findCurrenciesByCreationDateBetween(startDate, endDate);
-        List<Currency> currencyList = currencyStream.collect(Collectors.toList());
-        Assertions.assertTrue( currencyList.isEmpty() == false);
-        Assertions.assertTrue( currencyList.get(0).getCryptoCurrencyGroup().getBtcars().getAsk_currency().equalsIgnoreCase( "ars"));
+        List<Currency> currencyStream = this.repository.findCurrenciesByCreationDateBetween(startDate, endDate);
+        //List<Currency> currencyList = currencyStream.collect(Collectors.toList());
+        Assertions.assertTrue( currencyStream.isEmpty() == false);
+        Assertions.assertTrue( currencyStream.get(0).getCryptoCurrencyGroup().getBtcars().getAsk_currency().equalsIgnoreCase( "ars"));
 
     }
 

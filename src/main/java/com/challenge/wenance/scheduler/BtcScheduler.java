@@ -21,10 +21,9 @@ public class BtcScheduler {
 
     @Scheduled(fixedDelay = 10000)
     public void callBuenBitService(){
-
-        long yourmilliseconds = System.currentTimeMillis();
+        long milliseconds = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm:ss");
-        Date resultdate = new Date(yourmilliseconds);
+        Date resultdate = new Date(milliseconds);
         log.info("call buenbit service at : " + sdf.format(resultdate));
         this.fillingCurrencyDataService.getCurrencyDataAndPersist();
     }

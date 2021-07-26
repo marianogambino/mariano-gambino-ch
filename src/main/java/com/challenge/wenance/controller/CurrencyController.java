@@ -2,17 +2,15 @@ package com.challenge.wenance.controller;
 
 import com.challenge.wenance.dto.CurrencyPage;
 import com.challenge.wenance.model.CryptoCurrency;
-import com.challenge.wenance.model.Btcars;
+import com.challenge.wenance.model.CryptoCurrencyGroup;
 import com.challenge.wenance.model.Currency;
 import com.challenge.wenance.service.CurrencyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+
 
 
 @RestController
@@ -38,10 +36,10 @@ public class CurrencyController {
 
     @GetMapping(path="/averagePrice")
     @ResponseBody
-    public Currency getBtcPricingAverage(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss") Date startTime,
-                                               @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss") Date endTime){
+    public CryptoCurrencyGroup getBtcPricingAverage(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss") Date startTime,
+                                                    @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss") Date endTime){
 
-        return this.currencyService.getAvaregeBetweenDates(startTime, endTime);
+        return this.currencyService.getAverageBetweenDates(startTime, endTime);
     }
 
     @GetMapping(path="/allBtc")
