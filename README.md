@@ -66,5 +66,5 @@ Una vez detenido el servicio realizamos el stop de MongoDB en el contendor:
 > docker stop container some-mongo
 
 ## Test de Integración (Postman)
-#### Una vez levantado el microservicio, se puede probar importando el archivo en Postman: 
+#### Una vez levantado el microservicio, se puede probar importando el archivo .json en Postman: 
 > ./integrationTest/postman/Wenance Challenge.postman_collection.json
