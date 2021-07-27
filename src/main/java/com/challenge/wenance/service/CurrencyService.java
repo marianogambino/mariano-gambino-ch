@@ -4,12 +4,10 @@ import com.challenge.wenance.dto.CurrencyPage;
 import com.challenge.wenance.model.CryptoCurrency;
 import com.challenge.wenance.model.CryptoCurrencyGroup;
 import com.challenge.wenance.model.Currency;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 
-@Service
 public interface CurrencyService {
 
     void saveCurrency(Currency currency);
