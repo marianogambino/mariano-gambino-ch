@@ -64,21 +64,25 @@ y luego para visualizar el dato insertado de ejemplo, ejecutamos:
 ### Para saber en que base de datos estamos parados
 > db
 
-## Iniciar el microservicio de forma local (local machine)
 
+
+## Antes de iniciar/levantar el microservicio tanto local como desde docker debemos ejecutar:
+> mvn clean install
+
+## Si queremos iniciar el microservicio de forma local (local machine)
 #### Desde la linea de consola ejecura:
 >mvn spring-boot:run
 
-
-## Generar imagen e instalar en docker
+## Si queremos iniciar el microservicio en DOCKER
+### Generar imagen e instalar en docker
 Primero debemos ejecutar el siguiente comando desde root path de nuestro proyecto
 > docker build --tag=wenancech:latest .
 
-## Ejecutar Micoservicio con docker-compose
+### Ejecutar Micoservicio con docker-compose
 Desde path root del proyecto ejecutar:
 > docker-compose up
 
-## Para Micoservicio con docker-compose.
+### Para Micoservicio con docker-compose.
 Desde path root del proyecto ejecutar:
 > docker-compose down
 
