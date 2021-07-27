@@ -27,6 +27,8 @@ import java.util.Optional;
 public class CurrencyServiceImpl implements CurrencyService {
 
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    @Autowired
     private DatabaseSequenceService databaseSequenceService;
     @Autowired
     private CurrencyRepository repository;
