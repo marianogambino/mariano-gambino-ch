@@ -9,18 +9,17 @@ import com.challenge.wenance.repository.CurrencyRepository;
 import com.challenge.wenance.sequencer.service.DatabaseSequenceService;
 import com.challenge.wenance.service.CurrencyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 
 @Slf4j
@@ -29,6 +28,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private DatabaseSequenceService databaseSequenceService;
+    @Autowired
     private CurrencyRepository repository;
     private CurrencyAvarageFactory currencyAvarageFactory;
 
@@ -38,6 +38,9 @@ public class CurrencyServiceImpl implements CurrencyService {
         this.repository = repository;
         this.databaseSequenceService = databaseSequenceService;
         this.currencyAvarageFactory = currencyAvarageFactory;
+    }
+
+    public CurrencyServiceImpl() {
     }
 
     @Override
