@@ -37,11 +37,7 @@ Una vez instalado docker en la maquina local debemos instalar una instancia de M
 ## Antes de iniciar/levantar el microservicio tanto local como desde docker debemos ejecutar:
 > mvn clean install
 
-## Si queremos iniciar el microservicio de forma local (local machine)
-#### Desde la linea de consola ejecutar:
-> mvn spring-boot:run
-
-## Si queremos iniciar el microservicio en DOCKER
+## Iniciar el microservicio en DOCKER
 ### Generar imagen e instalar en docker
 Primero debemos ejecutar el siguiente comando desde root path de nuestro proyecto
 > docker build --tag=wenancech:latest .
@@ -53,6 +49,21 @@ Desde root path  del proyecto ejecutar:
 ### Para detener el Micoservicio + MongoBD con docker-compose.
 Desde root path del proyecto ejecutar:
 > docker-compose down
+
+## Iniciar el microservicio de forma LOCAL (local machine)
+#### Desde la linea de consola/comandos ejecutar:
+
+> docker run  -p 27017:27017 --name some-mongo -d mongo:latest
+
+y luego
+
+> mvn spring-boot:run
+
+Una vez ejecutado el servicio para deternerlo desde LOCAL ejecutamos:
+> Ctrl + C
+
+Una vez detenido el servicio realizamos el stop de MongoDB en el contendor:
+> docker stop container some-mongo
 
 ## Test de Integración (Postman)
 #### Una vez levantado el microservicio, se puede probar importando el archivo en Postman: 
