@@ -3,7 +3,6 @@ package com.challenge.wenance.factory;
 import com.challenge.wenance.enums.CurrencyTypeEnum;
 import com.challenge.wenance.model.*;
 import com.challenge.wenance.service.CurrencyAverageService;
-import org.mapstruct.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

@@ -68,3 +68,7 @@ Una vez detenido el servicio realizamos el stop de MongoDB en el contendor:
 ## Test de Integración (Postman)
 #### Una vez levantado el microservicio, se puede probar importando el archivo .json en Postman: 
 > ./integrationTest/postman/Wenance Challenge.postman_collection.json
+
+
+## DOC API con Swagger
+> http://localhost:8080/swagger-ui.html
