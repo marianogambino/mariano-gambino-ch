@@ -1,8 +1,10 @@
 package com.challenge.wenance.service.currency;
 
+import com.challenge.wenance.dto.CurrencyPage;
 import com.challenge.wenance.enums.CurrencyTypeEnum;
 import com.challenge.wenance.factory.CurrencyAverageFactory;
 import com.challenge.wenance.model.*;
+import com.challenge.wenance.model.Currency;
 import com.challenge.wenance.repository.CurrencyRepository;
 import com.challenge.wenance.service.CurrencyService;
 import com.challenge.wenance.service.impl.*;
@@ -15,12 +17,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 
 @SpringBootTest
 public class CurrencyServiceTest {
@@ -75,7 +76,7 @@ public class CurrencyServiceTest {
     }
 
     @Test
-    public void givenDate_whenGetAverageBetweenDates_thenCryptoCurrencyGroup(){
+    public void givenStartDateAndEndDate_whenGetAverageBetweenDates_thenCryptoCurrencyGroup(){
         Date startTime = new Date();
         Date endTime = new Date();
         CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
@@ -104,8 +105,164 @@ public class CurrencyServiceTest {
     }
 
     @Test
-    public void getCurrencies(){
+    public void givenStartDateEndDate_whenGetCurrencies_thenCurrencyPage(){
+        Date startTime = new Date();
+        Date endTime = new Date();
+        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
+        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup();
 
+        Currency currency = Currency.builder()
+                .creationDate(startTime)
+                .id(1L)
+                .cryptoCurrencyGroup(cryptoCurrencyGroup)
+                .build();
+
+        Currency currency2 = Currency.builder()
+                .creationDate(endTime)
+                .id(2L)
+                .cryptoCurrencyGroup(cryptoCurrencyGroup2)
+                .build();
+        List<Currency> currencies = Arrays.asList(currency,currency2 );
+
+        Sort sort = Sort.by(Sort.Order.desc("creationDate"));
+        int page=1;
+        int size=5;
+        Pageable paging = PageRequest.of(page, size, sort);
+
+        Page<Currency> currencyPage = getPageCurrency(currencies);
+
+        Mockito.when(this.currencyRepository.findCurrencyByCreationDateBetween(startTime, endTime,paging) )
+                .thenReturn(currencyPage);
+
+        CurrencyPage response = this.currencyService.getCurrencies( startTime, endTime, page, size );
+        Assert.assertTrue( Optional.ofNullable( response).isPresent() );
+        Assert.assertTrue( response.getTotalItems() == 2 );
+        Assert.assertTrue( response.getCurrentPage() == 1 );
+        Assert.assertTrue( response.getCurrencies().get(0).getCryptoCurrencyGroup()
+                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6784600.0)) == 0);
+    }
+
+    @Test
+    public void givenCallWihtoutDates_whenGetCurrencies_thenCurrencyPage(){
+        Date startTime = new Date();
+        Date endTime = new Date();
+        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
+        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup();
+
+        Currency currency = Currency.builder()
+                .creationDate(startTime)
+                .id(1L)
+                .cryptoCurrencyGroup(cryptoCurrencyGroup)
+                .build();
+
+        Currency currency2 = Currency.builder()
+                .creationDate(endTime)
+                .id(2L)
+                .cryptoCurrencyGroup(cryptoCurrencyGroup2)
+                .build();
+        List<Currency> currencies = Arrays.asList(currency,currency2 );
+
+        Sort sort = Sort.by(Sort.Order.desc("creationDate"));
+        int page=1;
+        int size=5;
+        Pageable paging = PageRequest.of(page, size, sort);
+
+        Page<Currency> currencyPage = getPageCurrency(currencies);
+
+        Mockito.when(this.currencyRepository.findAll(paging) )
+                .thenReturn(currencyPage);
+
+        CurrencyPage response = this.currencyService.getCurrencies( null, null, page, size );
+        Assert.assertTrue( Optional.ofNullable( response).isPresent() );
+        Assert.assertTrue( response.getTotalItems() == 2 );
+        Assert.assertTrue( response.getCurrentPage() == 1 );
+        Assert.assertTrue( response.getCurrencies().get(0).getCryptoCurrencyGroup()
+                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6784600.0)) == 0);
+    }
+
+    private Page<Currency> getPageCurrency(List<Currency> currencies){
+        Page<Currency> currencyPage = new Page<Currency>() {
+            @Override
+            public int getTotalPages() {
+                return 2;
+            }
+
+            @Override
+            public long getTotalElements() {
+                return 2;
+            }
+
+            @Override
+            public <U> Page<U> map(Function<? super Currency, ? extends U> function) {
+                return null;
+            }
+
+            @Override
+            public int getNumber() {
+                return 1;
+            }
+
+            @Override
+            public int getSize() {
+                return 2;
+            }
+
+            @Override
+            public int getNumberOfElements() {
+                return 0;
+            }
+
+            @Override
+            public List<Currency> getContent() {
+                return currencies;
+            }
+
+            @Override
+            public boolean hasContent() {
+                return false;
+            }
+
+            @Override
+            public Sort getSort() {
+                return null;
+            }
+
+            @Override
+            public boolean isFirst() {
+                return false;
+            }
+
+            @Override
+            public boolean isLast() {
+                return false;
+            }
+
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            @Override
+            public Pageable nextPageable() {
+                return null;
+            }
+
+            @Override
+            public Pageable previousPageable() {
+                return null;
+            }
+
+            @Override
+            public Iterator<Currency> iterator() {
+                return null;
+            }
+        };
+        return currencyPage;
     }
 
     private CryptoCurrencyGroup getCryptoCurrencyGroup(){
