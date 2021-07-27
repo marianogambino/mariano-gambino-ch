@@ -70,5 +70,5 @@ Una vez detenido el servicio realizamos el stop de MongoDB en el contendor:
 > ./integrationTest/postman/Wenance Challenge.postman_collection.json
 
 
-## DOC API con Swagger
+## API DOC con Swagger
 > http://localhost:8080/swagger-ui.html
