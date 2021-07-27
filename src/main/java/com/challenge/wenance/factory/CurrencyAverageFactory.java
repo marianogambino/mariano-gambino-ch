@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class CurrencyAvarageFactory {
+public class CurrencyAverageFactory {
 
     private CurrencyAverageService<Btcars> btcarsCurrencyAverageService;
     private CurrencyAverageService<Btcdai> btcdaiCurrencyAverageService;
@@ -19,7 +19,7 @@ public class CurrencyAvarageFactory {
     private CurrencyAverageService<Ethdai> ethdaiCurrencyAverageService;
     private Map<CurrencyTypeEnum, CurrencyAverageService> factory = new HashMap<>();
 
-    public CurrencyAvarageFactory(CurrencyAverageService<Btcars> btcarsCurrencyAverageService,
+    public CurrencyAverageFactory(CurrencyAverageService<Btcars> btcarsCurrencyAverageService,
                                   CurrencyAverageService<Btcdai> btcdaiCurrencyAverageService,
                                   CurrencyAverageService<Daiars> daiarsCurrencyAverageService,
                                   CurrencyAverageService<Daiusd> daiusdCurrencyAverageService,

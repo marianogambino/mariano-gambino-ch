@@ -2,7 +2,7 @@ package com.challenge.wenance.service.impl;
 
 import com.challenge.wenance.dto.CurrencyPage;
 import com.challenge.wenance.enums.CurrencyTypeEnum;
-import com.challenge.wenance.factory.CurrencyAvarageFactory;
+import com.challenge.wenance.factory.CurrencyAverageFactory;
 import com.challenge.wenance.helper.CurrencyHelper;
 import com.challenge.wenance.model.*;
 import com.challenge.wenance.repository.CurrencyRepository;
@@ -30,14 +30,15 @@ public class CurrencyServiceImpl implements CurrencyService {
     private DatabaseSequenceService databaseSequenceService;
     @Autowired
     private CurrencyRepository repository;
-    private CurrencyAvarageFactory currencyAvarageFactory;
+    @Autowired
+    private CurrencyAverageFactory currencyAverageFactory;
 
     public CurrencyServiceImpl(CurrencyRepository repository,
                                DatabaseSequenceService databaseSequenceService,
-                               CurrencyAvarageFactory currencyAvarageFactory){
+                               CurrencyAverageFactory currencyAverageFactory){
         this.repository = repository;
         this.databaseSequenceService = databaseSequenceService;
-        this.currencyAvarageFactory = currencyAvarageFactory;
+        this.currencyAverageFactory = currencyAverageFactory;
     }
 
     public CurrencyServiceImpl() {
@@ -83,12 +84,12 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         Optional<List<Currency>> optionalCurrencies = Optional.ofNullable(allCurrenciesUpToday);
         if(optionalCurrencies.isPresent() && optionalCurrencies.get().size() > 0) {
-            Btcars btcars = (Btcars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
-            Btcdai btcdai = (Btcdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
-            Daiars daiars = (Daiars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);
-            Daiusd daiusd = (Daiusd) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIUSD).getAverage(allCurrenciesUpToday);
-            Ethars ethars = (Ethars) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHARS).getAverage(allCurrenciesUpToday);
-            Ethdai ethdai = (Ethdai) currencyAvarageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHDAI).getAverage(allCurrenciesUpToday);
+            Btcars btcars = (Btcars) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCARS).getAverage(allCurrenciesUpToday);
+            Btcdai btcdai = (Btcdai) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.BTCDAI).getAverage(allCurrenciesUpToday);
+            Daiars daiars = (Daiars) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIARS).getAverage(allCurrenciesUpToday);
+            Daiusd daiusd = (Daiusd) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.DAIUSD).getAverage(allCurrenciesUpToday);
+            Ethars ethars = (Ethars) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHARS).getAverage(allCurrenciesUpToday);
+            Ethdai ethdai = (Ethdai) currencyAverageFactory.getCurrencyServiceAverage(CurrencyTypeEnum.ETHDAI).getAverage(allCurrenciesUpToday);
 
             return CryptoCurrencyGroup.builder()
                     .btcars(btcars)
