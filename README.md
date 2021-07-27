@@ -70,20 +70,20 @@ y luego para visualizar el dato insertado de ejemplo, ejecutamos:
 > mvn clean install
 
 ## Si queremos iniciar el microservicio de forma local (local machine)
-#### Desde la linea de consola ejecura:
->mvn spring-boot:run
+#### Desde la linea de consola ejecutar:
+> mvn spring-boot:run
 
 ## Si queremos iniciar el microservicio en DOCKER
 ### Generar imagen e instalar en docker
 Primero debemos ejecutar el siguiente comando desde root path de nuestro proyecto
 > docker build --tag=wenancech:latest .
 
-### Ejecutar Micoservicio con docker-compose
-Desde path root del proyecto ejecutar:
+### Iniciar Micoservicio + MongoBD con docker-compose
+Desde root path  del proyecto ejecutar:
 > docker-compose up
 
-### Para Micoservicio con docker-compose.
-Desde path root del proyecto ejecutar:
+### Para detener el Micoservicio + MongoBD con docker-compose.
+Desde root path del proyecto ejecutar:
 > docker-compose down
 
 ## Test de Integración (Postman)
