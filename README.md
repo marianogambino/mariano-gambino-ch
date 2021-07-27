@@ -34,38 +34,6 @@ Una vez instalado docker en la maquina local debemos instalar una instancia de M
 ### Instalar mongo en docker
 > docker pull mongo
 
-### Iniciar el servidor de mongo
-Exponemos el puerto (solo con fines practicos) para que podamos acceder desde afuera, más que nada para cuando levantemos
-el servicio de manera local se pueda conectar a la base de datos.
-> docker run  -p 27017:27017 --name some-mongo -d mongo:latest
-
-### Iniciar la consola de mongo
-> docker exec -it some-mongo mongo
-
-### Ahora estamos en la consola de MONGODB
-#### Para Mostrar las base de datos
-> show dbs
-
-#### Si queremos crear una base de datos podemos hacer lo siguiete:
-> use {databaseName} (Ejemplo)
-
-> use test
-
-#### La base de datos no se crea por completo hasta que ingrese algo.
-Esto es solo a modo de ejemplo, si queremos probar desde la consola
-> db.test.insert({name:"Hello World"})
-
-y luego para visualizar el dato insertado de ejemplo, ejecutamos:
-
-> db.test.find()
-
-#### Una vez que realizamos el primer insert vamos a ver la base de datos creada
-
-### Para saber en que base de datos estamos parados
-> db
-
-
-
 ## Antes de iniciar/levantar el microservicio tanto local como desde docker debemos ejecutar:
 > mvn clean install
 
