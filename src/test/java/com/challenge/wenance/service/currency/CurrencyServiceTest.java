@@ -79,8 +79,8 @@ public class CurrencyServiceTest {
     public void givenStartDateAndEndDate_whenGetAverageBetweenDates_thenCryptoCurrencyGroup(){
         Date startTime = new Date();
         Date endTime = new Date();
-        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
-        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup();
+        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup(6.0, 5.0);
+        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup(2.0, 1.5);
 
         Currency currency = Currency.builder()
                 .creationDate(startTime)
@@ -101,15 +101,16 @@ public class CurrencyServiceTest {
 
         CryptoCurrencyGroup response = this.currencyService.getAverageBetweenDates( startTime, endTime );
         Assert.assertTrue( Optional.ofNullable( response).isPresent() );
-        Assert.assertTrue( Optional.ofNullable( response).get().getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6784600.0)) == 0 );
+        Assert.assertTrue( Optional.ofNullable( response).get()
+                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(4.0)) == 0 );
     }
 
     @Test
     public void givenStartDateEndDate_whenGetCurrencies_thenCurrencyPage(){
         Date startTime = new Date();
         Date endTime = new Date();
-        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
-        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup();
+        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup(6.0, 4.0);
+        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup(5.0, 3.0);
 
         Currency currency = Currency.builder()
                 .creationDate(startTime)
@@ -139,15 +140,15 @@ public class CurrencyServiceTest {
         Assert.assertTrue( response.getTotalItems() == 2 );
         Assert.assertTrue( response.getCurrentPage() == 1 );
         Assert.assertTrue( response.getCurrencies().get(0).getCryptoCurrencyGroup()
-                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6784600.0)) == 0);
+                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6.0)) == 0);
     }
 
     @Test
     public void givenCallWihtoutDates_whenGetCurrencies_thenCurrencyPage(){
         Date startTime = new Date();
         Date endTime = new Date();
-        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup();
-        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup();
+        CryptoCurrencyGroup cryptoCurrencyGroup = getCryptoCurrencyGroup(6.0, 4.0);
+        CryptoCurrencyGroup cryptoCurrencyGroup2 = getCryptoCurrencyGroup( 2.0, 1.0);
 
         Currency currency = Currency.builder()
                 .creationDate(startTime)
@@ -177,7 +178,7 @@ public class CurrencyServiceTest {
         Assert.assertTrue( response.getTotalItems() == 2 );
         Assert.assertTrue( response.getCurrentPage() == 1 );
         Assert.assertTrue( response.getCurrencies().get(0).getCryptoCurrencyGroup()
-                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6784600.0)) == 0);
+                .getBtcars().getPurchase_price().compareTo( BigDecimal.valueOf(6.0)) == 0);
     }
 
     private Page<Currency> getPageCurrency(List<Currency> currencies){
@@ -265,12 +266,12 @@ public class CurrencyServiceTest {
         return currencyPage;
     }
 
-    private CryptoCurrencyGroup getCryptoCurrencyGroup(){
+    private CryptoCurrencyGroup getCryptoCurrencyGroup(double purchasePrice, double sellingPrice){
         return CryptoCurrencyGroup.builder()
                 .btcars(
                         Btcars.builder()
-                                .purchase_price(BigDecimal.valueOf(6784600.0))
-                                .selling_price(BigDecimal.valueOf(6920300.0))
+                                .purchase_price(BigDecimal.valueOf(purchasePrice))
+                                .selling_price(BigDecimal.valueOf(sellingPrice))
                                 .build()
                 )
                 .btcdai(
