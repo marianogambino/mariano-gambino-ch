@@ -11,28 +11,33 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 @Service
-public class DaiusdAverageServiceImpl implements CurrencyAverageService<Daiusd> {
+public class DaiusdAverageServiceImpl extends AverageServiceAbs implements CurrencyAverageService<Daiusd> {
 
     @Override
     public Daiusd getAverage(List<Currency> currencies) {
-        OptionalDouble purchasePriceBtCars = currencies.stream()
-                .map( Currency::getCryptoCurrencyGroup )
+        OptionalDouble purchasePrice = getPurchasePrice(currencies);
+        OptionalDouble sellingPrice =getSellingPrice(currencies);
+        return  Daiusd.builder()
+                .purchase_price(BigDecimal.valueOf( purchasePrice.getAsDouble()))
+                .selling_price( BigDecimal.valueOf( sellingPrice.getAsDouble() ))
+                .build();
+    }
+
+    private OptionalDouble getPurchasePrice(List<Currency> currencies){
+        return getStremCryptoCurrencyGroup(currencies)
                 .map( CryptoCurrencyGroup:: getDaiusd)
                 .map( Daiusd::getPurchase_price)
                 .mapToDouble(BigDecimal::doubleValue)
                 .average();
+    }
 
-
-        OptionalDouble sellingPriceBtCars = currencies.stream()
-                .map( Currency::getCryptoCurrencyGroup )
+    private OptionalDouble getSellingPrice(List<Currency> currencies){
+        return getStremCryptoCurrencyGroup(currencies)
                 .map( CryptoCurrencyGroup :: getDaiusd)
                 .map( Daiusd::getSelling_price)
                 .mapToDouble(BigDecimal::doubleValue)
                 .average();
-
-        return  Daiusd.builder()
-                .purchase_price(BigDecimal.valueOf( purchasePriceBtCars.getAsDouble()))
-                .selling_price( BigDecimal.valueOf( sellingPriceBtCars.getAsDouble() ))
-                .build();
     }
+
+
 }

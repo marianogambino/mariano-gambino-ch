@@ -10,4 +10,5 @@ public interface CurrencyAverageService<T> {
 
     T getAverage(List<Currency> currencies);
 
+
 }

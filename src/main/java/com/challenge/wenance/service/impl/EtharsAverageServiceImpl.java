@@ -1,5 +1,6 @@
 package com.challenge.wenance.service.impl;
 
+import com.challenge.wenance.model.Btcdai;
 import com.challenge.wenance.model.CryptoCurrencyGroup;
 import com.challenge.wenance.model.Currency;
 import com.challenge.wenance.model.Ethars;
@@ -11,28 +12,32 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 @Service
-public class EtharsAverageServiceImpl implements CurrencyAverageService<Ethars> {
+public class EtharsAverageServiceImpl extends AverageServiceAbs implements CurrencyAverageService<Ethars> {
 
     @Override
     public Ethars getAverage(List<Currency> currencies) {
-        OptionalDouble purchasePriceBtCars = currencies.stream()
-                .map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup:: getEthars)
-                .map( Ethars::getPurchase_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
+        OptionalDouble purchasePrice = getPurchasePrice(currencies);
+        OptionalDouble sellingPrice = getSellingPrice(currencies);
 
-
-        OptionalDouble sellingPriceBtCars = currencies.stream()
-                .map( Currency::getCryptoCurrencyGroup )
-                .map( CryptoCurrencyGroup :: getEthars)
-                .map( Ethars::getSelling_price)
-                .mapToDouble(BigDecimal::doubleValue)
-                .average();
-
-        return  Ethars.builder()
-                .purchase_price(BigDecimal.valueOf( purchasePriceBtCars.getAsDouble()))
-                .selling_price( BigDecimal.valueOf( sellingPriceBtCars.getAsDouble() ))
+        return Ethars.builder()
+                .purchase_price(BigDecimal.valueOf(purchasePrice.getAsDouble()))
+                .selling_price(BigDecimal.valueOf(sellingPrice.getAsDouble()))
                 .build();
+    }
+
+    private OptionalDouble getPurchasePrice(List<Currency> currencies){
+        return getStremCryptoCurrencyGroup(currencies)
+                .map(CryptoCurrencyGroup::getEthars)
+                .map(Ethars::getPurchase_price)
+                .mapToDouble(BigDecimal::doubleValue)
+                .average();
+    }
+
+    private OptionalDouble getSellingPrice(List<Currency> currencies){
+        return getStremCryptoCurrencyGroup(currencies)
+                .map(CryptoCurrencyGroup::getEthars)
+                .map(Ethars::getSelling_price)
+                .mapToDouble(BigDecimal::doubleValue)
+                .average();
     }
 }
