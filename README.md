@@ -87,5 +87,5 @@ Desde root path del proyecto ejecutar:
 > docker-compose down
 
 ## Test de Integración (Postman)
-####Una vez levantado el microservicio, se puede probar importando el archivo en Postman: 
+#### Una vez levantado el microservicio, se puede probar importando el archivo en Postman: 
 > ./integrationTest/postman/Wenance Challenge.postman_collection.json
