@@ -7,6 +7,7 @@ services:
         buenbit.service.url: "https://be.buenbit.com/api"
         logging.level.org.springframework.data: "debug"
         server.port: 8081
+        TZ: "GMT-3"
     image: wenancech:latest
     ports:
         - "8081:8081"
