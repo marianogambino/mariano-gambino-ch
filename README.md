@@ -12,7 +12,7 @@
 >  http://localhost:8080/api/cryptocurrency?currentTime=26-07-2021T02:09:45Z
    - Endpoint que calcula el promedio entre dos timestamp
 >  http://localhost:8080/api/cryptocurrency/averagePrice?startTime=26-07-2021T00:00:00Z&endTime=26-07-2021T05:00:00Z 
-   - Endpoint que devuelve en forma pagina los datos almacenados
+   - Endpoint que devuelve en forma paginada los datos almacenados
 >  http://localhost:8080/api/cryptocurrency/allBtc?startTime=26-07-2021T01:00:00Z&endTime=26-07-2021T02:55:20Z&page=1&size=3
     
 La solución esta desarrollada en Java 8 con SpringBoot, Lombok, una dependencia para realizar operaciones sobre la base de datos MongoDB.
